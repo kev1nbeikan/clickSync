@@ -10,8 +10,8 @@ async def handler(websocket):
         async for message in websocket:
             print(message)
             for conn in connected:
-                print(f"отравил {conn}")
-                await conn.send(message)
+                if conn != websocket:
+                    await conn.send(message)
     finally:
         connected.remove(websocket)
 
